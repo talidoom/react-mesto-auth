@@ -1,0 +1,17 @@
+.profile__text {
+  max-width: 336px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 920px) {
+  .profile__text {
+    padding-left: 42px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile__text {
+    padding-left: 28px;
+    max-width: 254px;
+  }
+}
