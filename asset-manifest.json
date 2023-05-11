@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mesto-react/static/css/main.fb018841.css",
+    "main.js": "/mesto-react/static/js/main.01333669.js",
+    "static/media/logo-header.svg": "/mesto-react/static/media/logo-header.6129e9de9314a1b289291e0d348b0752.svg",
+    "static/media/like-white.svg": "/mesto-react/static/media/like-white.1ad06e85f169668a1f36.svg",
+    "static/media/error.svg": "/mesto-react/static/media/error.df8eddf661ff88f2d0efd3d570d14309.svg",
+    "static/media/Trash.svg": "/mesto-react/static/media/Trash.ce3b64935accf9b8212e.svg",
+    "static/media/successful.svg": "/mesto-react/static/media/successful.1b6082f862eac35e2514460237d96ecc.svg",
+    "index.html": "/mesto-react/index.html",
+    "static/media/like-black.svg": "/mesto-react/static/media/like-black.35948469632d0421d697.svg",
+    "static/media/profile-edit.svg": "/mesto-react/static/media/profile-edit.6c7bf05444b9793fdf6e.svg",
+    "static/media/close-button.svg": "/mesto-react/static/media/close-button.039f1f5203f653b4bacd.svg",
+    "static/media/add-button.svg": "/mesto-react/static/media/add-button.bed8c136e13907f5eefb.svg",
+    "main.fb018841.css.map": "/mesto-react/static/css/main.fb018841.css.map",
+    "main.01333669.js.map": "/mesto-react/static/js/main.01333669.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb018841.css",
+    "static/js/main.01333669.js"
+  ]
+}
