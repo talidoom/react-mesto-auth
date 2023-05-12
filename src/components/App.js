@@ -14,7 +14,9 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import Footer from "./Footer";
 import api from "../utils/Api";
-import {getContent, authorize, register} from '../utils/auth';
+// import {getContent, authorize, register} from '../utils/auth';
+import auth from '../utils/auth';
+// import * as auth from '../utils/auth';
 
 function App() {
   const [cards, setCards] = React.useState([]);
@@ -26,6 +28,8 @@ function App() {
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = React.useState(false);;
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isSuccess, setSucces] = React.useState(false); ;
+  const [token, setToken] = React.useState('');
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
   const [email, setEmail] = React.useState('');;
   const [formValue, setFormValue] = React.useState({
@@ -73,38 +77,59 @@ function App() {
     }
   }, [isOpen]) 
 
+  // React.useEffect(() => {
+  //   if (isLoggedIn) {
+  //     Promise.all([api.getUserInfo(), api.getCardList()])
+  //       .then(([user, cards]) => {
+  //         setCurrentUser(user);
+  //         setCards(cards);
+  //       })
+  //       .catch((err) => {
+  //         console.log(`Ошибка ${err}`);
+  //       });
+  //   }
+  // }, [isLoggedIn]);
+
+  // React.useEffect(() => {
+  //   tokenCheck();
+  // }, []);
+
+  // function tokenCheck () {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+  //     getContent(jwt)
+  //       .then((res) => {
+  //         setIsLoggedIn(true);
+  //         setEmail(res.data.email);
+  //         navigate('/', { replace: true });
+  //       })
+  //       .catch((err) => {
+  //         console.log(`Ошибка ${err}`);
+  //       });
+  //   }
+  // };
+
   React.useEffect(() => {
-    if (isLoggedIn) {
-      Promise.all([api.getUserInfo(), api.getCardList()])
-        .then(([user, cards]) => {
-          setCurrentUser(user);
-          setCards(cards);
+		if(!isLoggedIn) {
+			return undefined;
+		} else {
+        api.getUserInfo()
+        .then((user) => {
+			setCurrentUser(user)
         })
         .catch((err) => {
-          console.log(`Ошибка ${err}`);
+            console.log(`Ошибка ${err}`);
         });
-    }
-  }, [isLoggedIn]);
 
-  function tokenCheck () {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      getContent(jwt)
+		api.getCards()
         .then((res) => {
-          setIsLoggedIn(true);
-          setEmail(res.data.email);
-          navigate('/', { replace: true });
+            setCards(res);
         })
         .catch((err) => {
-          console.log(`Ошибка ${err}`);
+            console.log(`Ошибка ${err}`);
         });
-    }
-  }; 
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, []);
-
+	}
+	}, [isLoggedIn]);
 
   function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
@@ -200,50 +225,109 @@ function App() {
     });
   };
 
-  function signOut () {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    setEmail('');
-    navigate('/sign-in', { replace: true });
-  };
+  // function signOut () {
+  //   localStorage.removeItem('jwt');
+  //   setIsLoggedIn(false);
+  //   setEmail('');
+  //   navigate('/sign-in', { replace: true });
+  // };
 
-  function handleRegister (evt) {
-    evt.preventDefault();
-    const { password, email } = formValue;
-    register(password, email)
-      .then(() => {
-        setFormValue({ email: "", password: "" });
-        setIsOpenInfoTooltip(true);
-        setIsRegister({
-          status: true,
-          message: 'Вы успешно зарегистрировались',
-        });
-        navigate('/sign-in', { replace: true });
-      })
-      .catch((err) => {
-        setIsOpenInfoTooltip(true);
-        setIsRegister({
-          status: false,
-          message: 'Что-то пошло не так! Попробуйте ещё раз',
-        });
-        console.log(`Ошибка ${err}`);
-      });
-  };
+  // function handleRegister (evt) {
+  //   evt.preventDefault();
+  //   const { password, email } = formValue;
+  //   register(password, email)
+  //     .then(() => {
+  //       setFormValue({ email: '', password: '' });
+  //       setIsOpenInfoTooltip(true);
+  //       setIsRegister({
+  //         status: true,
+  //         message: 'Вы успешно зарегистрировались',
+  //       });
+  //       navigate('/sign-in', { replace: true });
+  //     })
+  //     .catch((err) => {
+  //       setIsOpenInfoTooltip(true);
+  //       setIsRegister({
+  //         status: false,
+  //         message: 'Что-то пошло не так! Попробуйте ещё раз',
+  //       });
+  //       console.log(`Ошибка ${err}`);
+  //     });
+  // };
 
-  function handleLogin (evt) {
-    evt.preventDefault();
-    const { password, email } = formValue;
-    authorize(password, email)
-      .then(() => {
-        setFormValue({ email: '', password: '' });
-        setIsLoggedIn(true);
-        setEmail(email);
-        navigate('/', { replace: true });
-      })
-      .catch((err) => {
-        console.log(`Ошибка ${err}`);
-      });
-  };
+  // function handleLogin (evt) {
+  //   evt.preventDefault();
+  //   const { password, email } = formValue;
+  //   authorize(password, email)
+  //     .then(() => {
+  //       setFormValue({ email: '', password: '' });
+  //       setIsLoggedIn(true);
+  //       setEmail(email);
+  //       navigate('/', { replace: true });
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Ошибка ${err}`);
+  //     });
+  // };
+
+  function handleRegister({ email, password }) {
+		auth
+		.register(email, password)
+		.then(({token}) => {
+			localStorage.setItem("jwt", token);
+			setToken(token);
+			setSucces(true);
+			navigate('/sign-in', { replace: true });
+		})
+		.catch((err) => {
+			console.log(`Ошибка ${err}`);
+			setSucces(false);
+		})
+		.finally(() => {
+			setIsOpenInfoTooltip(true);
+		});
+	}
+
+  React.useEffect((evt) => {
+		if(localStorage.getItem("jwt")) {
+      evt.preventDefault();
+			const token = localStorage.getItem("jwt");
+			auth.checkToken(token)
+			.then((res) => {
+				const data = res.data;
+				setEmail(data.email);
+				setIsLoggedIn(true);
+				navigate('/');
+			})
+			.catch((err) => {
+				console.log(`Ошибка ${err}`);
+			})
+		}
+	}, []);
+
+  function handleLogin({ email, password }) {
+		auth
+		.login(email, password)
+		.then(({token}) => {
+			localStorage.setItem("jwt", token);
+			setToken(token);
+			setEmail(email);
+			setIsLoggedIn(true);
+			navigate ('/');
+		})
+		.catch((err) => {
+			console.log(`Ошибка ${err}`);
+			setSucces(false);
+			setIsOpenInfoTooltip(true);
+		})
+	}
+  function signOut() {
+		localStorage.removeItem("jwt");
+		setIsLoggedIn(false);
+		setToken("");
+		setEmail("");
+		navigate('/sign-in', { replace: true });
+	}
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
