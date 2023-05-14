@@ -14,8 +14,6 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import Footer from "./Footer";
 import api from "../utils/Api";
-// import {getContent, authorize, register} from '../utils/auth';
-// import auth from '../utils/auth';
 import * as auth from '../utils/auth';
 
 function App() {
