@@ -2,8 +2,10 @@ import React from "react";
 import successfulRegistration  from '../images/successful.svg';
 import errorRegistration from '../images/error.svg';
 
-const InfoTooltip = ({isOpen, onClose, isRegister, alt, popup }) => {
+const InfoTooltip = ({isSignIn, isOpen, onClose, popup }) => {
   const popupIsOpen = isOpen ? 'popup_opened' : '';
+  const icon = isSignIn ? successfulRegistration : errorRegistration;
+  const message = isSignIn ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз.";
 
   return ( 
     <div
@@ -17,11 +19,10 @@ const InfoTooltip = ({isOpen, onClose, isRegister, alt, popup }) => {
         />
         <img
           className="popup__auth-image"
-          src={isRegister.status ? successfulRegistration : errorRegistration}
-          alt={alt}
+          src={ icon }
         />
         <h2 className="popup__title popup__title_auth">
-          {isRegister.message}
+          {message}
         </h2>
       </div>
     </div>

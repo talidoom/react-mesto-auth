@@ -23,7 +23,17 @@
 @import url(./blocks/popup/__description/popup__description.css);
 
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__links/header__links.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__user-email/header__user-email.css);
 @import url(./blocks/header/__logo/header__logo.css);
+
+@import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__title/authorization__title.css);
+
+@import url(./blocks/authorization-form/authorization-form.css);
+@import url(./blocks/authorization-form/__input/authorization-form__input.css);
+@import url(./blocks/authorization-form/__button/authorization-form__button.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__container/profile__container.css);

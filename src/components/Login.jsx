@@ -1,15 +1,29 @@
 import React from "react";
 
-const Login = ({ title, formValue, handleChange, onLogin, buttonText }) => {
+const Login = (props) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function handleChangeEmail(evt) {
+    setEmail(evt.target.value);
+  }
+  function handleChangePass(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onLogin({ email, password });
+  }
   return (
     <div className="authorization">
-      <h1>{title}</h1>
-      <form className="authorization-form" onSubmit={onLogin}>
+      <h1 className="authorization__title">{props.title}</h1>
+      <form className="authorization-form" onSubmit={handleSubmit}>
         <input
           className="authorization-form__input"
           name="email"
-          value={formValue.email}
-          onChange={handleChange}
+          value={email}
+          onChange={handleChangeEmail}
           placeholder="E-mail"
           type="email"
           required
@@ -17,8 +31,9 @@ const Login = ({ title, formValue, handleChange, onLogin, buttonText }) => {
         <input
           name="password"
           className="authorization-form__input"
-          value={formValue.password}
-          onChange={handleChange}
+          value={password}
+          onChange={handleChangePass}
+          minLength={8}
           placeholder="Пароль"
           type="password"
           required
@@ -28,7 +43,7 @@ const Login = ({ title, formValue, handleChange, onLogin, buttonText }) => {
           type="submit"
           name="save"
         >
-          {buttonText}
+          Войти
         </button>
       </form>
     </div>

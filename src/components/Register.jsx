@@ -1,16 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Register = ({title, onRegister, handleChange, formValue, buttonText}) => {
+const Register = (props) => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  function handleChangeEmail(evt) {
+    setEmail(evt.target.value);
+  }
+  function handleChangePass(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onRegister({ email, password });
+  }
   return (
     <div className="authorization">
-      <h1>{title}</h1>
-      <form className="authorization-form" onSubmit={onRegister}>
+      <h1 className="authorization__title">{props.title}</h1>
+      <form className="authorization-form" onSubmit={handleSubmit}>
         <input
           className="authorization-form__input"
           name="email"
-          value={formValue.email}
-          onChange={handleChange}
+          value={email}
+          onChange={handleChangeEmail}
           placeholder="E-mail"
           type="email"
           required
@@ -18,8 +32,8 @@ const Register = ({title, onRegister, handleChange, formValue, buttonText}) => {
         <input
           name="password"
           className="authorization-form__input"
-          value={formValue.password}
-          onChange={handleChange}
+          value={password}
+          onChange={handleChangePass}
           placeholder="Пароль"
           type="password"
           required
@@ -27,9 +41,8 @@ const Register = ({title, onRegister, handleChange, formValue, buttonText}) => {
         <button
           className="authorization-form__button"
           type="submit"
-          name="save"
         >
-          {buttonText}
+          Регистрация
         </button>
         <Link className="authorization__link" to="/sign-in">
           Уже зарегистрированы? Войти
