@@ -9,7 +9,8 @@
 
 
 **GitHub:**
-* [Ссылка на проект в GitHub]([https://github.com/talidoom/mesto-react](https://github.com/talidoom/react-mesto-auth))
+* [Ссылка на проект в GitHub](https://github.com/talidoom/react-mesto-auth)
+* [Ссылка на макет в GitHub](https://talidoom.github.io/react-mesto-auth/)
   
 ---
 **Применяемые технолгии:**
