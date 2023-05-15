@@ -2,7 +2,7 @@ import React from 'react';
 import headerLogo from '../images/logo-header.svg'
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
-const Header = ({ isLoggedIn, email, signOut }) => {
+const Header = ({ isLoggedIn, email, onSignOut }) => {
   const location = useLocation();
   const linkText = location.pathname === "/sign-in" ? "Регистрация" : "Войти";
   const buttonText = isLoggedIn ? "Выйти" : linkText;
@@ -40,7 +40,7 @@ const Header = ({ isLoggedIn, email, signOut }) => {
           />
         </Routes>
         {isLoggedIn && (
-          <button className="header__link header__button" onClick={signOut}>
+          <button className="header__link header__button" onClick={onSignOut}>
             {buttonText}
           </button>
         )}
