@@ -31,4 +31,3 @@
 - GitBush;
 - Vim;
 - Figma.
-- Webpack;
